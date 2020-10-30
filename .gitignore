@@ -1,0 +1,13 @@
+# environment
+venv*
+tmp/
+
+# Python packaging and artifacts
+build/
+dist/
+*.egg*
+__pycache__/
+
+# IDE, editor files, system, ..
+.idea
+.DS_Store
