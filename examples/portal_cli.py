@@ -127,7 +127,6 @@ def main():
     else:
         print(f"Your User Token expires {auth.token.expires}:\n{auth.token.token}")
         if auth.totp_activated:
-            print("###", auth.totp_activated)
             print(f"TOTP Activated on: {auth.totp_activated.strftime('%c')}")
         client.token = auth.token.token
 

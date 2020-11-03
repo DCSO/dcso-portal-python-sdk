@@ -32,7 +32,7 @@ if you query a specific issue, using its UUID:
     result = apic.execute_graphql(query)
 
     print(result.issue.title)
-    for asset in result.tdh_issue.affectedAssets:
+    for asset in result.issue.affectedAssets:
         print(f"\t{asset.ip}")
 
 Note that in the above example we also used an alias for (`{issue: tdh_issue..`}).
