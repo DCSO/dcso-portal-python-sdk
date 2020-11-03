@@ -10,7 +10,7 @@ import os
 import subprocess
 
 _DOC_DIR = 'docs'
-_HTML_DOC_DIR = os.path.join(_DOC_DIR, 'html')
+_HTML_DOC_DIR = os.path.join(_DOC_DIR)
 _TEMPLATE_DIR = os.path.join('support', 'doc_templates')
 _MODULES = ['lib/dcso']
 
