@@ -1,7 +1,5 @@
 # Copyright (c) 2020, DCSO GmbH
 
-from typing import Final
-
 GROUP_SYSTEM = 0x01
 """Constant defining GLOSOM System message group (0x01)"""
 
