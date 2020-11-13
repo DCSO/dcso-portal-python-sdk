@@ -120,6 +120,9 @@ class GlosomException(Exception):
 
     def __str__(self) -> str:
         if self.glosom.message_id == 0:
+            # try with non-GLOSOM
+            if self.glosom.message != "":
+                return self.glosom.message
             return "invalid message"
         else:
             return "{msg} ({code:X})".format(msg=self.glosom.message, code=self.glosom.code)

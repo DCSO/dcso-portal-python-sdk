@@ -10,7 +10,7 @@ This script demonstrates:
 import os
 import sys
 
-from dcso.portal import APIClient, PortalConfiguration, ENV_PORTAL_TOKEN
+from dcso.portal import APIClient, ENV_PORTAL_TOKEN, PortalAPIError, PortalConfiguration
 
 # make sure we can read the common module
 sys.path.insert(0, os.path.dirname(os.path.realpath(__file__)))
@@ -43,10 +43,18 @@ def main():
 
     check_client(client)
 
-    response = client.execute_graphql(query='{ tdh_allIssues { id reference } }')
-    print("All TDH Issues:")
-    for issue in response.tdh_allIssues:
-        print(f"{issue.id} {issue.reference}")
+    try:
+        response = client.execute_graphql(query='{ tdh_allIssues { id reference } }')
+    except PortalAPIError as exc:
+        print_error(str(exc))
+        sys.exit(1)
+
+    if len(response.tdh_allIssues) > 0:
+        print("All TDH Issues:")
+        for issue in response.tdh_allIssues:
+            print(f"{issue.id} {issue.reference}")
+    else:
+        print("No issues available.")
 
     issue_id = '3be13d5f-1556-4edf-a243-e7ea4db67f2e'
     query = """query {
@@ -56,10 +64,16 @@ issue: tdh_issue(filter: {id: "%s"}) {
     }
 }""" % (issue_id,)
 
-    result = client.execute_graphql(query)
-    print(f"\n{result.issue.title} ({issue_id})")
-    for asset in result.issue.affectedAssets:
-        print(f"Assets:\n\t{asset.ip}")
+    print("Getting issue ", issue_id)
+    try:
+        result = client.execute_graphql(query)
+    except PortalAPIError as exc:
+        print_error(str(exc))
+        sys.exit(1)
+    else:
+        print(f"\n{result.issue.title} ({issue_id})")
+        for asset in result.issue.affectedAssets:
+            print(f"Assets:\n\t{asset.ip}")
 
 
 if __name__ == '__main__':
