@@ -124,17 +124,22 @@ class GraphQLRequest:
 
         try:
             first_error = response['errors'][0]
-        except (KeyError, IndexError):
+        except (TypeError, KeyError, IndexError):
             # all is good; return response
             return response
 
         try:
             err = first_error['message']
-            if 'extensions' in first_error and 'detail' in first_error['extensions']:
-                err += ' (' + first_error['extensions']['detail'] + ')'
-            g = Glosom(message=first_error['message'], code=first_error['extensions']['code'])
+            code = ""
+            if 'extensions' in first_error:
+                if 'detail' in first_error['extensions']:
+                    err += ' (' + first_error['extensions']['detail'] + ')'
+                code = first_error['extensions'].get('code', "")
+            g = Glosom(message=first_error['message'], code=code)
         except KeyError as exc:
             raise PortalAPIRequest(f"API request contained unusable error definition {exc}")
+        except AttributeError:
+            raise PortalAPIRequest(f"API request contained unusable error extensions")
         else:
             raise PortalAPIError(glosom=g)
 
