@@ -20,6 +20,7 @@ setup(name='dcso_portal_python_sdk',
       package_dir={'': 'lib'},
       packages=find_namespace_packages(where='lib'),
       license='MIT License',
+      license_files=['LICENSE.txt'],
       platforms=['Any'],
       classifiers=[
             "Programming Language :: Python :: 3 :: Only",
