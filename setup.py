@@ -11,7 +11,7 @@ sys.path.insert(0, os.path.join(curr_wd, 'lib'))
 
 from lib.dcso.portal._version import __version__  # nopep8 allowing import here
 
-setup(name='dcso_portal_sdk',
+setup(name='dcso_portal_python_sdk',
       version=__version__,
       description="DCSO Portal SDK",
       author='DCSO GmbH',
@@ -19,4 +19,15 @@ setup(name='dcso_portal_sdk',
       url="https://dcso.de",
       package_dir={'': 'lib'},
       packages=find_namespace_packages(where='lib'),
+      license='MIT License',
+      platforms=['Any'],
+      classifiers=[
+            "Programming Language :: Python :: 3 :: Only",
+            "Programming Language :: Python :: 3.7",
+            "Operating System :: OS Independent",
+            "Development Status :: 3 - Alpha",
+            "License :: OSI Approved :: MIT License",
+            "Topic :: Software Development",
+            "Topic :: Software Development :: Version Control :: Git",
+      ],
       )
