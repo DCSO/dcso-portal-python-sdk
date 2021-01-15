@@ -34,6 +34,11 @@ Installation
 This section explains how to install the DCSO Portal Python SDK. You can get
 a copy and source on [GitHub](https://github.com/dcso/dcso-portal-python-sdk).
 
+### From Python Package Index (PyPI)
+
+    $ pip install -U dcso-portal-python-sdk
+
+
 ### Using Source
 
 Installation is done using `setup.py`:

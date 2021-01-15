@@ -7,7 +7,7 @@ Installation
 
 To install the latest DCSO Portal SDK using pip:
 
-    $ pip install dcso-portal-sdk
+    $ pip install dcso-portal-python-sdk
 
 We advise to use a Virtual Environment when testing/developing.
 
