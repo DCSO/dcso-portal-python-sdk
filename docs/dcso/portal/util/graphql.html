@@ -154,17 +154,22 @@ class GraphQLRequest:
 
         try:
             first_error = response[&#39;errors&#39;][0]
-        except (KeyError, IndexError):
+        except (TypeError, KeyError, IndexError):
             # all is good; return response
             return response
 
         try:
             err = first_error[&#39;message&#39;]
-            if &#39;extensions&#39; in first_error and &#39;detail&#39; in first_error[&#39;extensions&#39;]:
-                err += &#39; (&#39; + first_error[&#39;extensions&#39;][&#39;detail&#39;] + &#39;)&#39;
-            g = Glosom(message=first_error[&#39;message&#39;], code=first_error[&#39;extensions&#39;][&#39;code&#39;])
+            code = &#34;&#34;
+            if &#39;extensions&#39; in first_error:
+                if &#39;detail&#39; in first_error[&#39;extensions&#39;]:
+                    err += &#39; (&#39; + first_error[&#39;extensions&#39;][&#39;detail&#39;] + &#39;)&#39;
+                code = first_error[&#39;extensions&#39;].get(&#39;code&#39;, &#34;&#34;)
+            g = Glosom(message=first_error[&#39;message&#39;], code=code)
         except KeyError as exc:
             raise PortalAPIRequest(f&#34;API request contained unusable error definition {exc}&#34;)
+        except AttributeError:
+            raise PortalAPIRequest(f&#34;API request contained unusable error extensions&#34;)
         else:
             raise PortalAPIError(glosom=g)
 
@@ -209,7 +214,7 @@ def graphql_data_to_namedtuple(mapping: dict, name: str = &#39;data&#39;) -&gt; 
 <h2 class="section-title" id="header-functions">Functions</h2>
 <dl>
 <dt id="dcso.portal.util.graphql.graphql_data_to_namedtuple"><code class="name flex">
-<span>def <span class="ident">graphql_data_to_namedtuple</span></span>(<span>mapping: dict, name: str = 'data') ‑> <function namedtuple at 0x7f8cb80edaf0></span>
+<span>def <span class="ident">graphql_data_to_namedtuple</span></span>(<span>mapping: dict, name: str = 'data') ‑> <function namedtuple at 0x7fa1a4c01830></span>
 </code></dt>
 <dd>
 <div class="desc"><p>Transforms GraphQL response data and returns it as a namedtuple.</p>
@@ -590,17 +595,22 @@ implement default like this::</p>
 
         try:
             first_error = response[&#39;errors&#39;][0]
-        except (KeyError, IndexError):
+        except (TypeError, KeyError, IndexError):
             # all is good; return response
             return response
 
         try:
             err = first_error[&#39;message&#39;]
-            if &#39;extensions&#39; in first_error and &#39;detail&#39; in first_error[&#39;extensions&#39;]:
-                err += &#39; (&#39; + first_error[&#39;extensions&#39;][&#39;detail&#39;] + &#39;)&#39;
-            g = Glosom(message=first_error[&#39;message&#39;], code=first_error[&#39;extensions&#39;][&#39;code&#39;])
+            code = &#34;&#34;
+            if &#39;extensions&#39; in first_error:
+                if &#39;detail&#39; in first_error[&#39;extensions&#39;]:
+                    err += &#39; (&#39; + first_error[&#39;extensions&#39;][&#39;detail&#39;] + &#39;)&#39;
+                code = first_error[&#39;extensions&#39;].get(&#39;code&#39;, &#34;&#34;)
+            g = Glosom(message=first_error[&#39;message&#39;], code=code)
         except KeyError as exc:
             raise PortalAPIRequest(f&#34;API request contained unusable error definition {exc}&#34;)
+        except AttributeError:
+            raise PortalAPIRequest(f&#34;API request contained unusable error extensions&#34;)
         else:
             raise PortalAPIError(glosom=g)
 
@@ -619,7 +629,7 @@ implement default like this::</p>
 <h3>Methods</h3>
 <dl>
 <dt id="dcso.portal.util.graphql.GraphQLRequest.execute"><code class="name flex">
-<span>def <span class="ident">execute</span></span>(<span>self) ‑> <function namedtuple at 0x7f8cb80edaf0></span>
+<span>def <span class="ident">execute</span></span>(<span>self) ‑> <function namedtuple at 0x7fa1a4c01830></span>
 </code></dt>
 <dd>
 <div class="desc"><p>Executes the GraphQL request returning response as a namedtuple.</p>
@@ -675,17 +685,22 @@ the <code>PortalAPIRequest</code> exception is raised.</p></div>
 
     try:
         first_error = response[&#39;errors&#39;][0]
-    except (KeyError, IndexError):
+    except (TypeError, KeyError, IndexError):
         # all is good; return response
         return response
 
     try:
         err = first_error[&#39;message&#39;]
-        if &#39;extensions&#39; in first_error and &#39;detail&#39; in first_error[&#39;extensions&#39;]:
-            err += &#39; (&#39; + first_error[&#39;extensions&#39;][&#39;detail&#39;] + &#39;)&#39;
-        g = Glosom(message=first_error[&#39;message&#39;], code=first_error[&#39;extensions&#39;][&#39;code&#39;])
+        code = &#34;&#34;
+        if &#39;extensions&#39; in first_error:
+            if &#39;detail&#39; in first_error[&#39;extensions&#39;]:
+                err += &#39; (&#39; + first_error[&#39;extensions&#39;][&#39;detail&#39;] + &#39;)&#39;
+            code = first_error[&#39;extensions&#39;].get(&#39;code&#39;, &#34;&#34;)
+        g = Glosom(message=first_error[&#39;message&#39;], code=code)
     except KeyError as exc:
         raise PortalAPIRequest(f&#34;API request contained unusable error definition {exc}&#34;)
+    except AttributeError:
+        raise PortalAPIRequest(f&#34;API request contained unusable error extensions&#34;)
     else:
         raise PortalAPIError(glosom=g)</code></pre>
 </details>
@@ -820,7 +835,7 @@ to use.</p>
 <p>Copyright (c) 2020, <a href="https://dcso.de">DCSO Deutsche Cyber-Sicherheitsorganisation GmbH</a></p>
 </div>
 <div>
-<p><strong>v0.9.0.dev1</strong></p>
+<p><strong>v0.1.0-beta1</strong></p>
 </div>
 </div>
 </footer>
