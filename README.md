@@ -1,10 +1,12 @@
 DCSO Portal Python SDK
 ======================
 
-Copyright (c) 2020, DCSO Deutsche Cyber-Sicherheitsorganisation GmbH
+Copyright (c) 2020, 2021, DCSO Deutsche Cyber-Sicherheitsorganisation GmbH
 
 DCSO Portal Python Software Development Kit (SDK) helps you create
 application which need to interact with the DCSO Portal.
+
+Documentation: [https://dcso.github.io/dcso-portal-python-sdk/dcso/portal/](https://dcso.github.io/dcso-portal-python-sdk/dcso/portal/)
 
 Requirements
 ------------
@@ -12,7 +14,7 @@ Requirements
 This library is, when installed, pure Python. We use only 3rd party tools
 for installation and documentation generation.
 
-* Python v3.7 or greater
+* Python v3.7 or greater (Python v3.6 as best effort)
 * See requirements in `requirements.txt`
 
 Requirements can be installed using, for example, `pip`:
@@ -47,13 +49,11 @@ Prerequisites in this document).
 Documentation
 -------------
 
-Documentation is available as HTML in the `docs/html/dcso` folder.
+Documentation is available as HTML in the `docs/dcso/portal` folder.
 
 It is possible to generate it using:
 
     $ ./gendocs.py
-    
-    open ./docs/html/dcso/index.html
 
 Alternatively, it is also possible to have the documentation service
 by the pdoc3 web server. This is mostly useful for working on the

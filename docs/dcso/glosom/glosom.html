@@ -150,6 +150,9 @@ class GlosomException(Exception):
 
     def __str__(self) -&gt; str:
         if self.glosom.message_id == 0:
+            # try with non-GLOSOM
+            if self.glosom.message != &#34;&#34;:
+                return self.glosom.message
             return &#34;invalid message&#34;
         else:
             return &#34;{msg} ({code:X})&#34;.format(msg=self.glosom.message, code=self.glosom.code)</code></pre>
@@ -384,6 +387,9 @@ the GLOSOM as error. The extensions contains the code as integer.</p>
 
     def __str__(self) -&gt; str:
         if self.glosom.message_id == 0:
+            # try with non-GLOSOM
+            if self.glosom.message != &#34;&#34;:
+                return self.glosom.message
             return &#34;invalid message&#34;
         else:
             return &#34;{msg} ({code:X})&#34;.format(msg=self.glosom.message, code=self.glosom.code)</code></pre>
@@ -440,7 +446,7 @@ the GLOSOM as error. The extensions contains the code as integer.</p>
 <p>Copyright (c) 2020, <a href="https://dcso.de">DCSO Deutsche Cyber-Sicherheitsorganisation GmbH</a></p>
 </div>
 <div>
-<p><strong>v0.9.0.dev1</strong></p>
+<p><strong>v0.1.0-beta1</strong></p>
 </div>
 </div>
 </footer>
