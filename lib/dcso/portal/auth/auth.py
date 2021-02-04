@@ -1,4 +1,4 @@
-# Copyright (c) 2020, DCSO GmbH
+# Copyright (c) 2020, 2021, DCSO GmbH
 
 from datetime import datetime
 from typing import Optional
@@ -108,13 +108,18 @@ class Auth(RBACMixin):
             raise
 
     def second_authentication_totp(self, username: str, temp_token: str, totp: str,
-                                   set_api_token: bool = True) -> Authentication:
+                                   set_api_token: bool = True,
+                                   resource: str = _DEFAULT_TOKEN_RESOURCE) -> Authentication:
         """Two-factor authentication using Time-based One-Time Password (TOTP).
 
         The `username` must be the same which was used with the `authenticate` method. The
         `temp_token` argument is set to the temporary token returned by the method
         `authenticate`. Finally, the `totp` argument is the code visible in the
         authenticator application which holds the TOTP secret.
+
+        The `resource` argument is by default `PortalPythonSDK`, but it can
+        be, for example, the name of the application or script. This must match the resource
+        that was used with `authenticate()`.
 
         When `set_api_token` is True, and authentication succeeds, the non-temporary
         token will be stored and used for further API queries.
@@ -131,6 +136,7 @@ class Auth(RBACMixin):
                 "username": username,
                 "temporaryToken": temp_token,
                 "otpCode": totp,
+                "resource": resource,
             }
         }
 
