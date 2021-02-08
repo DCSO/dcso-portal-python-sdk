@@ -52,7 +52,7 @@ class Authentication:
 
         self.totp_required: bool = True
         self.totp_activated: Optional[datetime] = None
-        self.totp_qrcode: Optional[str] = None
+        self.totp_barcode: Optional[str] = None
 
         if graphql_response:
             self._handle_graphql_response(graphql_response)
@@ -68,6 +68,7 @@ class Authentication:
             self.totp_required = res[&#39;otp&#39;][&#39;required&#39;]
             self.totp_activated = res[&#39;otp&#39;][&#39;activated&#39;]
             self.token_is_temporary = res[&#39;isTemporaryToken&#39;]
+            self.totp_barcode = res[&#39;otpSVGQRCode&#39;]
         except KeyError as exc:
             raise PortalAPIResponse(f&#34;failed handling authentication response ({exc})&#34;)
 
@@ -679,7 +680,7 @@ the <code>PortalAPIRequest</code> exception is raised.</p></div>
 
         self.totp_required: bool = True
         self.totp_activated: Optional[datetime] = None
-        self.totp_qrcode: Optional[str] = None
+        self.totp_barcode: Optional[str] = None
 
         if graphql_response:
             self._handle_graphql_response(graphql_response)
@@ -695,6 +696,7 @@ the <code>PortalAPIRequest</code> exception is raised.</p></div>
             self.totp_required = res[&#39;otp&#39;][&#39;required&#39;]
             self.totp_activated = res[&#39;otp&#39;][&#39;activated&#39;]
             self.token_is_temporary = res[&#39;isTemporaryToken&#39;]
+            self.totp_barcode = res[&#39;otpSVGQRCode&#39;]
         except KeyError as exc:
             raise PortalAPIResponse(f&#34;failed handling authentication response ({exc})&#34;)</code></pre>
 </details>
@@ -742,7 +744,7 @@ the <code>PortalAPIRequest</code> exception is raised.</p></div>
 <p>Copyright (c) 2020, 2021, <a href="https://dcso.de">DCSO Deutsche Cyber-Sicherheitsorganisation GmbH</a></p>
 </div>
 <div>
-<p><strong>v1.0.0-beta2</strong></p>
+<p><strong>v1.0.0-beta4</strong></p>
 </div>
 </div>
 </footer>
