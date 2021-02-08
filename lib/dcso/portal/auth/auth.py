@@ -22,7 +22,7 @@ class Authentication:
 
         self.totp_required: bool = True
         self.totp_activated: Optional[datetime] = None
-        self.totp_qrcode: Optional[str] = None
+        self.totp_barcode: Optional[str] = None
 
         if graphql_response:
             self._handle_graphql_response(graphql_response)
@@ -38,6 +38,7 @@ class Authentication:
             self.totp_required = res['otp']['required']
             self.totp_activated = res['otp']['activated']
             self.token_is_temporary = res['isTemporaryToken']
+            self.totp_barcode = res['otpSVGQRCode']
         except KeyError as exc:
             raise PortalAPIResponse(f"failed handling authentication response ({exc})")
 

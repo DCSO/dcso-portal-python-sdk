@@ -10,9 +10,13 @@ import unittest
 _TEST_USER_TOKEN_10Y = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE5MTE3NjE4MzgsImlhdCI6MTU5NjQwMTgzOCwiaXNzIjoiZGNzbzphMyIsInN1YiI6IjVlZjI5OGU2LTg1ZGMtNGYzYS05ZGJlLTgxN2ZkYzAyMDlhMCIsImF1dGh6Ijp7Imdyb3VwcyI6WyJhMzpzdXBlciIsImEzOnVzZXIiXX0sImNudHIiOjYyNn0.szC8Sso6FqD_-83Z2K9_5_8L7n5t8WXUz6CO7BgsEmk'  # noqa
 _TEST_USER_TOKEN_EXPIRED = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE1OTYzODM5ODMsImlhdCI6MTU5NjM0Nzk4MywiaXNzIjoiZGNzbzphMyIsInN1YiI6IjVlZjI5OGU2LTg1ZGMtNGYzYS05ZGJlLTgxN2ZkYzAyMDlhMCIsImF1dGh6Ijp7Imdyb3VwcyI6WyJhMzpzdXBlciIsImEzOnVzZXIiXX0sImNudHIiOjUxM30.8VS5NjaJmjfLPqwKICUnxzOxW3EwBnWq_8jxv09siV4'  # noqa
 _TEST_USER_TOKEN_TEMP = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE5MTE3NjI3OTUsImlhdCI6MTU5NjQwMjc5NSwiaXNzIjoiZGNzbzphMyIsInN1YiI6IjBkMDFhNDU2LTczYzEtMTFlOC05NGM3LTNkYmFlYzczNzgwMiIsImF1dGh6Ijp7Imdyb3VwcyI6W119LCJjbnRyIjo5OX0.w6V2Qyc5jGpqX9UVzW2O_Pt68cfWXJpdsaGmGx3JWm0'  # noqa
-_TEST_USER_RESP = {'data': {'portalauth': {'user': {'id': '5ef298e6-85dc-4f3a-9dbe-817fdc0209a0', 'username': 'admin'},
-                                           'token': _TEST_USER_TOKEN_10Y,
-                                           'isTemporaryToken': False, 'otp': {'required': False, 'activated': None}}}}
+_TEST_USER_RESP = {'data': {'portalauth': {
+    'user': {'id': '5ef298e6-85dc-4f3a-9dbe-817fdc0209a0', 'username': 'admin'},
+    'token': _TEST_USER_TOKEN_10Y,
+    'otpSVGQRCode': '<svg></svg>',
+    'isTemporaryToken': False,
+    'otp': {'required': False, 'activated': None}
+}}}
 
 
 class TestToken(unittest.TestCase):
