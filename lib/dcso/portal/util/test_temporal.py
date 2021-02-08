@@ -36,6 +36,8 @@ class TestDecodeUTCISO8601(unittest.TestCase):
     def test_valid(self):
         Case = namedtuple('Case', ['value', 'exp'])
         cases = [
+            Case(value='2020-07-30T16:12:44Z',
+                 exp=datetime(2020, 7, 30, 16, 12, 44, 0, tzinfo=timezone.utc)),
             Case(value='2020-07-30T16:12:44.490868Z',
                  exp=datetime(2020, 7, 30, 16, 12, 44, 490868, tzinfo=timezone.utc)),
             Case(value='2020-07-30T16:12:44.490868 UTC',

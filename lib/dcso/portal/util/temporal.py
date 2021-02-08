@@ -1,4 +1,4 @@
-# Copyright (c) 2020, DCSO GmbH
+# Copyright (c) 2020, 2021, DCSO GmbH
 
 from datetime import datetime, timedelta, timezone
 
@@ -47,13 +47,15 @@ def decode_utc_iso8601(s: str) -> datetime:
                 s = s.replace('+00', zero_hour)
             else:
                 raise ValueError("timezone UTC not recognized")
-        dot_index = s.index('.')
-        tz_index = s.index('+')
+
+        dot_index = s.find('.')
+        tz_index = s.find('+')
         if dot_index > 0 and tz_index > dot_index + 7:
             # we make sure that the fraction has 6 digits
             # allowing microseconds, but not nanoseconds
             fraction = s[dot_index + 1:tz_index]
             s = s.replace('.' + fraction, '.' + str(round(int(fraction) / 1000)))
+
         try:
             return datetime.fromisoformat(s)
         except AttributeError:
