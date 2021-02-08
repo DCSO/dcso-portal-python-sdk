@@ -15,11 +15,12 @@ This library is, when installed, pure Python. We use only 3rd party tools
 for installation and documentation generation.
 
 * Python v3.7 or greater (Python v3.6 as best effort)
-* See requirements in `requirements.txt`
+* Requirements:
+  - for distribution, see `requirements_dist.txt`
 
 Requirements can be installed using, for example, `pip`:
 
-    $ pip install -r requirements.txt
+    $ pip install -r requirements_dist.txt
 
 We strongly advise to use a Virtual Environment for testing or for
 development. This makes sure your local Python environment stays clean.
@@ -130,6 +131,46 @@ IDE Tips
 Right click on the `lib/` folder in the root of the repository and 
 select 'Mark Directory as > Sources Root'. This will make sure PyCharm
 add the code to its `PYTHONPATH`.
+
+
+Distribution
+------------
+
+DCSO Portal Python SDK is make available for downloading from GitHub as source
+distributions are made available with each release.
+
+We also upload to the Python Package Index (PyPI) using `twine`, and an API token.
+
+### Preparing a Release
+
+It is a good idea to start with a fresh Virtual Environment when creating a new
+release.
+
+1. Install requirements: `pip install -r requirements_dist.txt`
+2. Create a supporting branch which contains the version number to be releases,
+   for example, `release/1.0.0-beta3`
+3. Update `lib/dcso/portal/_version.py` and update the `__version__` variable
+4. Generate documentation: `./gendocs.py`
+5. Create source distribution: `python setup.py sdist --formats=zip` (will be created
+   in sub folder `dist`)
+
+### Upload to PyPI
+
+With the source distribution created as ZIP-archive, we can now upload to PyPI using
+the Twine module.
+
+```
+python3 -m twine upload dist/dcso_portal_python_sdk-1.0.0b3.zip
+```
+
+The `twine` module is installed using `pip install -r requirements_dist.txt`.
+
+Twine will ask you for credentials:
+
+1. Use `__token__` as username
+2. As Password, enter the PyPI API Token for the `dcso-portal-python-sdk` project (note
+   that this includes the `pypi-` prefix)
+
 
 License
 -------

@@ -5,7 +5,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1" />
-<meta name="generator" content="pdoc 0.9.1" />
+<meta name="generator" content="pdoc 0.9.2" />
 <title>dcso.portal.auth.auth API documentation</title>
 <meta name="description" content="" />
 <link rel="preload stylesheet" as="style" href="https://cdnjs.cloudflare.com/ajax/libs/10up-sanitize.css/11.0.1/sanitize.min.css" integrity="sha256-PK9q560IAAa6WVRRh76LtCaI8pjTJ2z11v0miyNNjrs=" crossorigin>
@@ -28,7 +28,7 @@
 <summary>
 <span>Expand source code</span>
 </summary>
-<pre><code class="python"># Copyright (c) 2020, DCSO GmbH
+<pre><code class="python"># Copyright (c) 2020, 2021, DCSO GmbH
 
 from datetime import datetime
 from typing import Optional
@@ -138,13 +138,18 @@ class Auth(RBACMixin):
             raise
 
     def second_authentication_totp(self, username: str, temp_token: str, totp: str,
-                                   set_api_token: bool = True) -&gt; Authentication:
+                                   set_api_token: bool = True,
+                                   resource: str = _DEFAULT_TOKEN_RESOURCE) -&gt; Authentication:
         &#34;&#34;&#34;Two-factor authentication using Time-based One-Time Password (TOTP).
 
         The `username` must be the same which was used with the `authenticate` method. The
         `temp_token` argument is set to the temporary token returned by the method
         `authenticate`. Finally, the `totp` argument is the code visible in the
         authenticator application which holds the TOTP secret.
+
+        The `resource` argument is by default `PortalPythonSDK`, but it can
+        be, for example, the name of the application or script. This must match the resource
+        that was used with `authenticate()`.
 
         When `set_api_token` is True, and authentication succeeds, the non-temporary
         token will be stored and used for further API queries.
@@ -161,6 +166,7 @@ class Auth(RBACMixin):
                 &#34;username&#34;: username,
                 &#34;temporaryToken&#34;: temp_token,
                 &#34;otpCode&#34;: totp,
+                &#34;resource&#34;: resource,
             }
         }
 
@@ -334,13 +340,18 @@ user = auth.authenticate("alice", "alice.password")
             raise
 
     def second_authentication_totp(self, username: str, temp_token: str, totp: str,
-                                   set_api_token: bool = True) -&gt; Authentication:
+                                   set_api_token: bool = True,
+                                   resource: str = _DEFAULT_TOKEN_RESOURCE) -&gt; Authentication:
         &#34;&#34;&#34;Two-factor authentication using Time-based One-Time Password (TOTP).
 
         The `username` must be the same which was used with the `authenticate` method. The
         `temp_token` argument is set to the temporary token returned by the method
         `authenticate`. Finally, the `totp` argument is the code visible in the
         authenticator application which holds the TOTP secret.
+
+        The `resource` argument is by default `PortalPythonSDK`, but it can
+        be, for example, the name of the application or script. This must match the resource
+        that was used with `authenticate()`.
 
         When `set_api_token` is True, and authentication succeeds, the non-temporary
         token will be stored and used for further API queries.
@@ -357,6 +368,7 @@ user = auth.authenticate("alice", "alice.password")
                 &#34;username&#34;: username,
                 &#34;temporaryToken&#34;: temp_token,
                 &#34;otpCode&#34;: totp,
+                &#34;resource&#34;: resource,
             }
         }
 
@@ -565,7 +577,7 @@ the <code>PortalAPIRequest</code> exception is raised.</p></div>
 </details>
 </dd>
 <dt id="dcso.portal.auth.auth.Auth.second_authentication_totp"><code class="name flex">
-<span>def <span class="ident">second_authentication_totp</span></span>(<span>self, username: str, temp_token: str, totp: str, set_api_token: bool = True) ‑> <a title="dcso.portal.auth.auth.Authentication" href="#dcso.portal.auth.auth.Authentication">Authentication</a></span>
+<span>def <span class="ident">second_authentication_totp</span></span>(<span>self, username: str, temp_token: str, totp: str, set_api_token: bool = True, resource: str = 'PortalPythonSDK') ‑> <a title="dcso.portal.auth.auth.Authentication" href="#dcso.portal.auth.auth.Authentication">Authentication</a></span>
 </code></dt>
 <dd>
 <div class="desc"><p>Two-factor authentication using Time-based One-Time Password (TOTP).</p>
@@ -573,6 +585,9 @@ the <code>PortalAPIRequest</code> exception is raised.</p></div>
 <code>temp_token</code> argument is set to the temporary token returned by the method
 <code>authenticate</code>. Finally, the <code>totp</code> argument is the code visible in the
 authenticator application which holds the TOTP secret.</p>
+<p>The <code>resource</code> argument is by default <code>PortalPythonSDK</code>, but it can
+be, for example, the name of the application or script. This must match the resource
+that was used with <code>authenticate()</code>.</p>
 <p>When <code>set_api_token</code> is True, and authentication succeeds, the non-temporary
 token will be stored and used for further API queries.</p>
 <p>An Authentication instance is returned which contains general user information,
@@ -585,13 +600,18 @@ the <code>PortalAPIRequest</code> exception is raised.</p></div>
 <span>Expand source code</span>
 </summary>
 <pre><code class="python">def second_authentication_totp(self, username: str, temp_token: str, totp: str,
-                               set_api_token: bool = True) -&gt; Authentication:
+                               set_api_token: bool = True,
+                               resource: str = _DEFAULT_TOKEN_RESOURCE) -&gt; Authentication:
     &#34;&#34;&#34;Two-factor authentication using Time-based One-Time Password (TOTP).
 
     The `username` must be the same which was used with the `authenticate` method. The
     `temp_token` argument is set to the temporary token returned by the method
     `authenticate`. Finally, the `totp` argument is the code visible in the
     authenticator application which holds the TOTP secret.
+
+    The `resource` argument is by default `PortalPythonSDK`, but it can
+    be, for example, the name of the application or script. This must match the resource
+    that was used with `authenticate()`.
 
     When `set_api_token` is True, and authentication succeeds, the non-temporary
     token will be stored and used for further API queries.
@@ -608,6 +628,7 @@ the <code>PortalAPIRequest</code> exception is raised.</p></div>
             &#34;username&#34;: username,
             &#34;temporaryToken&#34;: temp_token,
             &#34;otpCode&#34;: totp,
+            &#34;resource&#34;: resource,
         }
     }
 
@@ -718,7 +739,7 @@ the <code>PortalAPIRequest</code> exception is raised.</p></div>
 <footer id="footer">
 <div style="width: 100%; display: flex; justify-content: flex-end">
 <div>
-<p>Copyright (c) 2020, <a href="https://dcso.de">DCSO Deutsche Cyber-Sicherheitsorganisation GmbH</a></p>
+<p>Copyright (c) 2020, 2021, <a href="https://dcso.de">DCSO Deutsche Cyber-Sicherheitsorganisation GmbH</a></p>
 </div>
 <div>
 <p><strong>v1.0.0-beta2</strong></p>
