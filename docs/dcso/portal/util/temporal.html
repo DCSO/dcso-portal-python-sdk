@@ -28,7 +28,7 @@
 <summary>
 <span>Expand source code</span>
 </summary>
-<pre><code class="python"># Copyright (c) 2020, DCSO GmbH
+<pre><code class="python"># Copyright (c) 2020, 2021, DCSO GmbH
 
 from datetime import datetime, timedelta, timezone
 
@@ -77,13 +77,15 @@ def decode_utc_iso8601(s: str) -&gt; datetime:
                 s = s.replace(&#39;+00&#39;, zero_hour)
             else:
                 raise ValueError(&#34;timezone UTC not recognized&#34;)
-        dot_index = s.index(&#39;.&#39;)
-        tz_index = s.index(&#39;+&#39;)
+
+        dot_index = s.find(&#39;.&#39;)
+        tz_index = s.find(&#39;+&#39;)
         if dot_index &gt; 0 and tz_index &gt; dot_index + 7:
             # we make sure that the fraction has 6 digits
             # allowing microseconds, but not nanoseconds
             fraction = s[dot_index + 1:tz_index]
             s = s.replace(&#39;.&#39; + fraction, &#39;.&#39; + str(round(int(fraction) / 1000)))
+
         try:
             return datetime.fromisoformat(s)
         except AttributeError:
@@ -273,13 +275,15 @@ nanoseconds will be truncated and rounded till microseconds.</p></div>
                 s = s.replace(&#39;+00&#39;, zero_hour)
             else:
                 raise ValueError(&#34;timezone UTC not recognized&#34;)
-        dot_index = s.index(&#39;.&#39;)
-        tz_index = s.index(&#39;+&#39;)
+
+        dot_index = s.find(&#39;.&#39;)
+        tz_index = s.find(&#39;+&#39;)
         if dot_index &gt; 0 and tz_index &gt; dot_index + 7:
             # we make sure that the fraction has 6 digits
             # allowing microseconds, but not nanoseconds
             fraction = s[dot_index + 1:tz_index]
             s = s.replace(&#39;.&#39; + fraction, &#39;.&#39; + str(round(int(fraction) / 1000)))
+
         try:
             return datetime.fromisoformat(s)
         except AttributeError:
@@ -404,7 +408,7 @@ If dt is naive, timezone is first set, assuming it to be UTC.</p></div>
 <p>Copyright (c) 2020, 2021, <a href="https://dcso.de">DCSO Deutsche Cyber-Sicherheitsorganisation GmbH</a></p>
 </div>
 <div>
-<p><strong>v1.0.0-beta2</strong></p>
+<p><strong>v1.0.0-beta4</strong></p>
 </div>
 </div>
 </footer>
