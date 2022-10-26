@@ -1,7 +1,7 @@
 DCSO Portal Python SDK
 ======================
 
-***This project is now deprecated. It is not maintained anymore.***
+***This project is deprecated. It can still be used but is not maintained anymore.***
 
 Copyright (c) 2020, 2021, DCSO Deutsche Cyber-Sicherheitsorganisation GmbH
 
